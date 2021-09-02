@@ -49,57 +49,36 @@ const singers = [
   },
 ];
 
-// let string = JSON.stringify(singer);
-// console.log(string);
-
 const tableContainer = document.getElementById("table-container");
+const searchSinger = document.getElementById("search-singer");
+
 function showSingers(singers) {
   tableContainer.innerHTML = "";
   tableContainer.innerHTML += `
-  <tr>
-      <th>Name | </th>
-      <th>Country | </th>
-      <th>Periode active  | </th>
-      <th>genre  | </th>
-  </tr>`;
+        <tr>
+            <th onclick="sortSingersBy('name')">Name</th>
+            <th onclick="sortSingersBy('country')">Country</th>
+            <th>Periode active</th>
+            <th onclick="sortSingersBy('genre')">genre</th>
+        </tr>`;
   singers.forEach((element) => {
     tableContainer.innerHTML += `
-          <tr>
-              <td> <br>${element.name}</td>
-              <td>${element.country}</td>
-              <td>${element.period_active.start} - ${element.period_active.end}</td>
-              <td>${element.genre}</td>
-          </tr>`;
+        <tr>
+            <td>${element.name}</td>
+            <td>${element.country}</td>
+            <td>${element.period_active.start} - ${element.period_active.end}</td>
+            <td>${element.genre}</td>
+        </tr>`;
   });
 }
-// function showSingers(singers) {
-//   tableContainer.innerHTML = "";
-//   tableContainer.innerHTML += `
-//       <tr>
-//           <th onclick="sortSingersBy('name')">Name</th>
-//           <th onclick="sortSingersBy('country')">Country</th>
-//           <th>Periode active</th>
-//           <th onclick="sortSingersBy('genre')">genre</th>
-//       </tr>`;
-//   singers.forEach((element) => {
-//     tableContainer.innerHTML += `
-//       <tr>
-//           <td>${element.name}</td>
-//           <td>${element.country}</td>
-//           <td>${element.period_active.start} - ${element.period_active.end}</td>
-//           <td>${element.genre}</td>
-//       </tr>`;
-//   });
-// }
 showSingers(singers);
 
-// let music =
-//   '{"singers": [' +
-//   '{"name": "The Beatles"},' +
-//   '{"name": "Elvis Presley"},' +
-//   '{"name": "Michael Jackson"},' +
-//   '{"name": "Elton John"}]}';
-
-// let obj = JSON.parse(music);
-// document.getElementById("demo").innerHTML =
-//   obj.singers[0].name + "<br> " + obj.singers[1].name;
+// sortSingersBy('name')
+function sortSingersBy(x) {
+  let newSingers = singers.sort((a, b) => {
+    if (a[x] > b[x]) return 1;
+    if (a[x] < b[x]) return -1;
+    return 0;
+  });
+  showSingers(newSingers);
+}
